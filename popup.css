@@ -75,41 +75,135 @@
 }
 
 .session-card {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.82rem;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
 }
 
-.session-row {
+.session-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0.86rem 0.95rem 0.72rem;
+  border-bottom: 1px solid rgba(15, 17, 21, 0.07);
 }
 
-.session-time {
-  font-variant-numeric: tabular-nums;
-  font-weight: 630;
-  color: var(--accent);
-  font-size: 1.02rem;
+.session-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+.session-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.state-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+
+.session-state-text {
+  font-size: 0.86rem;
+  color: #22a954;
+  font-weight: 560;
 }
 
 .task-name {
-  margin: 0 0 0.35rem;
-  font-size: 1.08rem;
-  font-weight: 620;
+  margin: 0.35rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #8a8c92;
+  line-height: 1.1;
+}
+
+.session-ring-wrap {
+  position: relative;
+  width: 258px;
+  margin: 0.95rem auto 0.75rem;
+}
+
+.session-ring {
+  width: 258px;
+  height: 258px;
+  display: block;
+}
+
+.ring-track,
+.ring-progress {
+  fill: none;
+  stroke-width: 5.5;
+}
+
+.ring-track {
+  stroke: #f1f2f6;
+}
+
+.ring-progress {
+  stroke: #6366f1;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+  transition: stroke 0.95s linear, stroke-dashoffset 0.95s linear;
+}
+
+.session-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.session-time {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #12141c;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .session-meta {
-  margin: 0 0 1rem;
+  margin: 0.78rem 0.98rem 0.88rem;
+  text-align: center;
 }
 
-.session-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+.session-status-btn {
+  width: calc(100% - 1.5rem);
+  margin: 0 0.75rem;
+  min-height: 46px;
+  border-radius: 14px;
+  justify-content: space-between;
+  padding-inline: 0.9rem;
 }
 
-.session-actions .btn,
+.session-status-btn::after {
+  content: '›';
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #90939d;
+}
+
+.session-end-btn {
+  width: calc(100% - 1.5rem);
+  margin: 0.66rem 0.75rem 0.92rem;
+  min-height: 50px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
 .start-btn {
   border-radius: 999px;
 }
