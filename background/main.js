@@ -34,5 +34,5 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  storage.ensureDefaultSettings();
+  void storage.ensureDefaultSettings();
 });
