@@ -1,105 +1,230 @@
+/* Blocked interstitial — iyO.ai–inspired: deep OLED blacks, soft mint highlights, calm product-page rhythm.
+   Theme tokens scoped here so popup/options stay unchanged. */
+
 .blocked-page {
+  --bg: #050506;
+  --bg-elevated: #101014;
+  --bg-card: #121218;
+  --border: rgba(255, 255, 255, 0.065);
+  --text: #f2f1ee;
+  --text-muted: #8a8a94;
+  --accent: #9fe3d2;
+  --accent-dim: rgba(159, 227, 210, 0.12);
+  --accent-glow: rgba(159, 227, 210, 0.22);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(94, 234, 212, 0.12), transparent 55%), var(--bg);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  font-family: var(--font);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(159, 227, 210, 0.14), transparent 50%),
+    radial-gradient(ellipse 60% 45% at 100% 50%, rgba(120, 160, 220, 0.06), transparent 45%),
+    radial-gradient(ellipse 50% 40% at 0% 80%, rgba(159, 227, 210, 0.05), transparent 42%),
+    linear-gradient(180deg, #0a0a0d 0%, var(--bg) 38%, #040405 100%);
 }
 
 .blocked-card {
-  max-width: 440px;
+  max-width: 460px;
   width: 100%;
   position: relative;
   overflow: hidden;
+  padding: clamp(1.35rem, 4vw, 1.75rem);
+  border-radius: var(--radius);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, var(--bg-card) 42%, var(--bg-card) 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
-#stage-badge {
-  margin-bottom: 0.75rem;
+.blocked-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 55% at 50% 0%, var(--accent-glow), transparent 65%);
+  opacity: 0.35;
+}
+
+.blocked-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.blocked-page .badge {
+  margin-bottom: 0.85rem;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(159, 227, 210, 0.22);
+  box-shadow: 0 0 24px rgba(159, 227, 210, 0.08);
 }
 
 .blocked-card h1 {
-  margin: 0 0 0.5rem;
-  font-size: 1.35rem;
-  letter-spacing: -0.02em;
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.45rem, 4vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  color: var(--text);
 }
 
 .lead {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-.grounding {
-  margin: 0 0 1.25rem;
-  font-size: 0.92rem;
-  color: var(--accent);
+  font-size: 0.9375rem;
   line-height: 1.5;
 }
 
+.grounding {
+  margin: 0 0 1.35rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
 .task-block {
-  padding: 0.85rem 1rem;
+  padding: 1rem 1.1rem;
   border-radius: var(--radius-sm);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  margin-bottom: 1.25rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.35rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.blocked-page .field-label {
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
 }
 
 .task-title {
-  margin: 0.25rem 0 0;
+  margin: 0.35rem 0 0;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.02rem;
+  color: var(--text);
 }
 
 .session-remaining {
-  margin: 0.35rem 0 0;
+  margin: 0.4rem 0 0;
   font-variant-numeric: tabular-nums;
 }
 
 .pause-overlay {
   text-align: center;
-  padding: 1.25rem 0 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 1.5rem 0 0.65rem;
+  margin-bottom: 0.65rem;
 }
 
 .pause-count {
-  font-size: 2.5rem;
+  font-size: clamp(2.75rem, 10vw, 3.25rem);
   font-weight: 700;
+  letter-spacing: -0.04em;
   color: var(--accent);
   margin: 0;
   font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 48px var(--accent-glow);
+}
+
+.pause-overlay .muted {
+  font-size: 0.8125rem;
 }
 
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.7rem;
+}
+
+.blocked-page .btn {
+  padding: 0.72rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--bg-elevated);
+  color: var(--text);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.12s ease;
+}
+
+.blocked-page .btn:hover {
+  background: #18181f;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.blocked-page .btn-primary {
+  background: var(--accent-dim);
+  border-color: rgba(159, 227, 210, 0.4);
+  color: var(--accent);
+  box-shadow: 0 0 32px rgba(159, 227, 210, 0.12);
+}
+
+.blocked-page .btn-primary:hover {
+  background: rgba(159, 227, 210, 0.2);
+  border-color: rgba(159, 227, 210, 0.55);
+  box-shadow: 0 0 40px rgba(159, 227, 210, 0.18);
+}
+
+.blocked-page .btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+.blocked-page .btn-ghost:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-muted);
 }
 
 .check-row.strong-check {
   align-items: flex-start;
   font-size: 0.85rem;
-  line-height: 1.4;
-  margin-bottom: 0.25rem;
+  line-height: 1.45;
+  margin-bottom: 0.35rem;
 }
 
 .check-row.strong-check input {
   margin-top: 0.2rem;
+  accent-color: var(--accent);
 }
 
 .limit-copy {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.55rem;
 }
 
 .unlock-timer {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   font-variant-numeric: tabular-nums;
 }
 
 .recovery-row {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  margin-top: 1.15rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .recovery-btn {
@@ -107,7 +232,14 @@
 }
 
 .footer-note {
-  margin: 1.25rem 0 0;
-  font-size: 0.72rem;
-  opacity: 0.85;
+  margin: 1.35rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.blocked-page .muted {
+  color: var(--text-muted);
 }
