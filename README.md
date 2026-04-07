@@ -48,6 +48,7 @@ No accounts, servers, or analytics. The intervention page states it plainly: not
 | **Session timer** | Start a focus session from the popup with a task name and duration; optional pause of intercepts. |
 | **Domain list** | Configure which sites trigger the flow (options page + sensible defaults). |
 | **Three friction stages** | First visit: short pause + choice. Later visits: checkbox acknowledgment and stricter paths (**Balanced** vs **Firm** presets in settings). |
+| **Session-only bypass** | From the blocked page, allow the current domain for the active session in one click. |
 | **Return to work** | Primary action always returns you to productive context; optional “open anyway” when the stage allows. |
 | **Last work tab** | When available, recover the last non-blocked URL you had open during the session. |
 | **Streaks** | Lightweight daily streak bookkeeping when sessions complete naturally (alarm-driven teardown). |
@@ -99,7 +100,7 @@ Updates: pull the latest `main` and click **Reload** on the extension card.
 
 1. Open the extension **popup** → enter what you are working on and how long → **Start session**.
 2. Browse as usual. Opening a site on your blocklist during the session opens the **intervention** page instead of loading the site immediately.
-3. Choose **Go back to work** (always available) or follow the stage-specific path if you still want to continue.
+3. Choose **Go back to work**, **Allow this site for this session**, or follow the stage-specific path if you still want to continue.
 4. Use **Pause checks** in the popup if you need a short break from intercepts; **End session** when you are done.
 
 Open **Options** (gear in the popup) to edit domains, friction style, and defaults.
