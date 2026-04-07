@@ -1,0 +1,100 @@
+.popup-root {
+  width: 340px;
+  padding: 1rem 1rem 0.75rem;
+  background: linear-gradient(165deg, #121a24 0%, var(--bg) 45%);
+  min-height: 100%;
+}
+
+.popup-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.popup-tagline {
+  margin: 0.2rem 0 0;
+}
+
+.icon-btn {
+  padding: 0.45rem;
+  flex-shrink: 0;
+}
+
+.session-card {
+  margin-bottom: 0.75rem;
+}
+
+.session-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.session-time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.task-name {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.session-meta {
+  margin: 0 0 1rem;
+}
+
+.session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.start-card .field-label:first-child {
+  margin-top: 0;
+}
+
+.start-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+}
+
+.disabled-hint {
+  margin: 0.65rem 0 0;
+  text-align: center;
+}
+
+.allow-hint {
+  margin: 0.35rem 0 0;
+}
+
+.popup-footer {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border);
+}
+
+.privacy-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+#streak-line {
+  font-size: 0.75rem;
+}

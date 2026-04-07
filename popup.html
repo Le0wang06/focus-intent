@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Focus Intent</title>
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup-root">
+      <header class="popup-header">
+        <div>
+          <h1 class="popup-title">Focus Intent</h1>
+          <p class="popup-tagline muted">Intentional browsing. Local-only.</p>
+        </div>
+        <button type="button" class="btn btn-ghost icon-btn" id="open-settings" title="Settings" aria-label="Open settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <section class="card session-card" id="active-panel" hidden>
+        <div class="session-row">
+          <span class="badge" id="session-badge">Focus on</span>
+          <span class="session-time" id="time-remaining">—</span>
+        </div>
+        <h2 class="task-name" id="current-task">—</h2>
+        <p class="muted session-meta" id="session-meta"></p>
+        <div class="session-actions">
+          <button type="button" class="btn btn-ghost" id="toggle-pause">Pause checks</button>
+          <button type="button" class="btn btn-danger" id="end-session">End session</button>
+        </div>
+      </section>
+
+      <section class="card start-card" id="start-panel">
+        <span class="field-label">What are you doing?</span>
+        <select id="task-type"></select>
+
+        <label class="field-label" for="task-label" style="margin-top: 0.75rem">Task name</label>
+        <input type="text" id="task-label" placeholder="e.g. Finish chapter 4" maxlength="120" />
+
+        <label class="field-label" for="duration" style="margin-top: 0.75rem">Duration (minutes)</label>
+        <input type="number" id="duration" min="5" max="480" step="5" value="25" />
+
+        <label class="field-label" for="allowlist" style="margin-top: 0.75rem">Allow during session (optional)</label>
+        <textarea id="allowlist" placeholder="One domain per line, e.g.&#10;docs.google.com&#10;github.com"></textarea>
+        <p class="muted allow-hint">These sites skip friction while your session runs.</p>
+
+        <button type="button" class="btn btn-primary start-btn" id="start-session">Start focus session</button>
+        <p class="muted disabled-hint" id="disabled-hint" hidden>Extension is off in settings. Turn it on to run sessions.</p>
+      </section>
+
+      <footer class="popup-footer muted">
+        <span id="streak-line"></span>
+        <p class="privacy-note">No account. No cloud. Data stays in your browser.</p>
+      </footer>
+    </div>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
