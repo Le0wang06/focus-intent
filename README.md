@@ -25,16 +25,18 @@ A Chrome extension (Manifest V3) for **intentional browsing**: task-aware focus 
 
 This project is already initialized as a Git repo under `Projects/focus-intent` with a small commit history (scaffold → service worker → popup → options → blocked page → tweaks).
 
-After you create an **empty** repository on GitHub (no README/license if you want a clean first push):
+Target remote for this project: **[github.com/Le0wang06/focus-intent](https://github.com/Le0wang06/focus-intent)** (create the empty repo under [Le0wang06](https://github.com/Le0wang06) if it does not exist yet).
 
 ```bash
-cd /path/to/focus-intent
-git remote add origin https://github.com/YOUR_USER/focus-intent.git
+cd ~/Projects/focus-intent
+git remote add origin https://github.com/Le0wang06/focus-intent.git   # skip if origin already exists
 git branch -M main
 git push -u origin main
 ```
 
-If you use the [GitHub CLI](https://cli.github.com/): `gh auth login` then `gh repo create focus-intent --public --source=. --push`.
+If `origin` is already set to another URL: `git remote set-url origin https://github.com/Le0wang06/focus-intent.git`
+
+If you use the [GitHub CLI](https://cli.github.com/): `gh auth login` then `gh repo create focus-intent --public --source=. --remote=origin --push`.
 
 ## Permissions
 
