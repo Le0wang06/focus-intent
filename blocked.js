@@ -1,5 +1,6 @@
 import { randomGroundingMessage } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
+import { isHttpUrl } from './shared/domains.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatSessionRemainingPhrase } from './shared/time.js';
 
@@ -7,13 +8,36 @@ function qs(name) {
   return new URL(window.location.href).searchParams.get(name);
 }
 
+function parseTabId() {
+  const raw = Number.parseInt(qs('tabId') ?? '', 10);
+  return Number.isInteger(raw) && raw >= 0 ? raw : null;
+}
+
+function parseStage() {
+  const raw = Number.parseInt(qs('stage') ?? '', 10);
+  return raw >= 1 && raw <= 3 ? raw : 1;
+}
+
+function bindOneClickAction(button, createMessage) {
+  let sent = false;
+  button.addEventListener('click', () => {
+    if (sent) return;
+    sent = true;
+    button.disabled = true;
+    sendToBackground(createMessage()).catch(() => {
+      sent = false;
+      button.disabled = false;
+    });
+  });
+}
+
 async function main() {
   const targetUrl = qs('target');
   const domain = qs('domain') || 'this site';
-  const stage = Number(qs('stage')) || 1;
-  const tabId = Number(qs('tabId')) || null;
+  const stage = parseStage();
+  const tabId = parseTabId();
 
-  if (!targetUrl || !tabId) {
+  if (!targetUrl || tabId === null || !isHttpUrl(targetUrl)) {
     document.getElementById('headline').textContent = 'Something went wrong';
     document.getElementById('site-line').textContent = 'Close this tab and try again.';
     return;
@@ -71,9 +95,7 @@ async function main() {
     }, 1000);
 
     bindWork('btn-work-1');
-    btnOpen.addEventListener('click', () => {
-      sendToBackground({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl });
-    });
+    bindOneClickAction(btnOpen, () => ({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl }));
   } else if (stage === 2) {
     document.getElementById('stage-badge').textContent = 'Second check';
     document.getElementById('headline').textContent = 'Stronger confirmation';
@@ -84,9 +106,7 @@ async function main() {
       btnOpen.disabled = !ack.checked;
     });
     bindWork('btn-work-2');
-    btnOpen.addEventListener('click', () => {
-      sendToBackground({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl });
-    });
+    bindOneClickAction(btnOpen, () => ({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl }));
   } else {
     document.getElementById('stage-badge').textContent = 'Strong limit';
     document.getElementById('headline').textContent = 'Protecting your focus';
@@ -108,9 +128,13 @@ async function main() {
       waitEl.textContent = `Unlock available in ${wait}s`;
     }, 1000);
 
-    btnOpen.addEventListener('click', () => {
-      sendToBackground({ type: Msg.GRANT_TEMP_UNLOCK, tabId, domain, targetUrl, minutes: 2 });
-    });
+    bindOneClickAction(btnOpen, () => ({
+      type: Msg.GRANT_TEMP_UNLOCK,
+      tabId,
+      domain,
+      targetUrl,
+      minutes: 2
+    }));
   }
 }
 

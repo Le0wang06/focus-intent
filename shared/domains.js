@@ -36,6 +36,15 @@ export function hostnameFromUrl(urlString) {
   }
 }
 
+export function isHttpUrl(urlString) {
+  try {
+    const u = new URL(urlString);
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
 export function isExtensionUrl(urlString) {
   return typeof urlString === 'string' && urlString.startsWith('chrome-extension://');
 }

@@ -2,6 +2,7 @@ import {
   normalizeDomainInput,
   hostnameMatches,
   hostnameFromUrl,
+  isHttpUrl,
   isExtensionUrl,
   uniqueDomains,
   domainInList
@@ -50,7 +51,7 @@ export async function maybeInterceptNavigation(tabId, url) {
   if (!isSessionActive(session)) return;
   if (session.paused) return;
 
-  if (!url || !url.startsWith('http')) return;
+  if (!url || !isHttpUrl(url)) return;
   if (isExtensionUrl(url)) return;
 
   const hostname = hostnameFromUrl(url);
