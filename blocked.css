@@ -1,0 +1,113 @@
+.blocked-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(94, 234, 212, 0.12), transparent 55%), var(--bg);
+}
+
+.blocked-card {
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#stage-badge {
+  margin-bottom: 0.75rem;
+}
+
+.blocked-card h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.grounding {
+  margin: 0 0 1.25rem;
+  font-size: 0.92rem;
+  color: var(--accent);
+  line-height: 1.5;
+}
+
+.task-block {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+}
+
+.task-title {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.session-remaining {
+  margin: 0.35rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.pause-overlay {
+  text-align: center;
+  padding: 1.25rem 0 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pause-count {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.check-row.strong-check {
+  align-items: flex-start;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+.check-row.strong-check input {
+  margin-top: 0.2rem;
+}
+
+.limit-copy {
+  margin: 0 0 0.5rem;
+}
+
+.unlock-timer {
+  margin: 0 0 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.recovery-row {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.recovery-btn {
+  width: 100%;
+}
+
+.footer-note {
+  margin: 1.25rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}

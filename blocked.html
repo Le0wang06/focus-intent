@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Focus check — Focus Intent</title>
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="blocked.css" />
+  </head>
+  <body>
+    <div class="blocked-page">
+      <div class="blocked-card card">
+        <p class="badge" id="stage-badge">Focus check</p>
+        <h1 id="headline">Pause for a moment</h1>
+        <p class="lead" id="site-line"></p>
+        <p class="grounding" id="grounding"></p>
+
+        <div class="task-block">
+          <span class="field-label">Your session</span>
+          <p class="task-title" id="task-title">—</p>
+          <p class="session-remaining muted" id="session-remaining">—</p>
+        </div>
+
+        <div class="pause-overlay" id="pause-overlay" hidden>
+          <p class="pause-count" id="pause-count">3</p>
+          <p class="muted">A short pause before you choose.</p>
+        </div>
+
+        <div class="stage-body" id="stage-body">
+          <div id="controls-1" class="controls" hidden>
+            <button type="button" class="btn btn-primary" id="btn-work-1">Go back to work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-1" disabled>Continue to site</button>
+          </div>
+
+          <div id="controls-2" class="controls" hidden>
+            <label class="check-row strong-check">
+              <input type="checkbox" id="ack-2" />
+              <span>I’m choosing to leave my focus session’s intention right now.</span>
+            </label>
+            <button type="button" class="btn btn-primary" id="btn-work-2">Go back to work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-2" disabled>Continue anyway</button>
+          </div>
+
+          <div id="controls-3" class="controls" hidden>
+            <p class="muted limit-copy">
+              You’ve reached the stronger limit for this site during this session. You can return to work, or wait for a
+              timed unlock.
+            </p>
+            <div class="unlock-timer muted" id="unlock-wait"></div>
+            <button type="button" class="btn btn-primary" id="btn-work-3">Go back to work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-3" disabled>Open for 2 minutes</button>
+          </div>
+        </div>
+
+        <div class="recovery-row" id="recovery-row" hidden>
+          <button type="button" class="btn btn-ghost recovery-btn" id="btn-recover">Return to last work page</button>
+        </div>
+
+        <p class="muted footer-note">Focus Intent runs locally—nothing about this moment is sent to the cloud.</p>
+      </div>
+    </div>
+    <script type="module" src="blocked.js"></script>
+  </body>
+</html>
