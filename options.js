@@ -1,6 +1,7 @@
 import { normalizeDomainInput, uniqueDomains } from './shared/domains.js';
 import { FRICTION_STYLES, SITE_PRESETS } from './shared/constants.js';
 import { STORAGE_KEYS, DEFAULT_SETTINGS } from './shared/storage-keys.js';
+import { mountLiveScene } from './shared/live-scene.js';
 
 const SETTINGS_KEY = STORAGE_KEYS.SETTINGS;
 
@@ -132,6 +133,12 @@ document.getElementById('reset-all').addEventListener('click', async () => {
 setupFrictionSelect();
 setupPresets();
 paint();
+mountLiveScene(document.getElementById('options-scene'), {
+  density: 48,
+  hue: 188,
+  baseAlpha: 0.22,
+  linkDistance: 145
+});
 
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'local' && changes[SETTINGS_KEY]) paint();

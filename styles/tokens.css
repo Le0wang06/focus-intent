@@ -1,18 +1,18 @@
 :root {
-  --bg: #0f1419;
-  --bg-elevated: #1a2332;
-  --bg-card: #1e2a3a;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #e8eef4;
-  --text-muted: #8b9cb3;
-  --accent: #5eead4;
-  --accent-dim: rgba(94, 234, 212, 0.15);
+  --bg: #0b111a;
+  --bg-elevated: #121c2a;
+  --bg-card: rgba(18, 28, 42, 0.86);
+  --border: rgba(255, 255, 255, 0.11);
+  --text: #f2f7fb;
+  --text-muted: #9eb0c8;
+  --accent: #7cf3dd;
+  --accent-dim: rgba(124, 243, 221, 0.16);
   --warning: #fbbf24;
   --danger: #f87171;
-  --radius: 14px;
-  --radius-sm: 10px;
-  --font: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --radius: 16px;
+  --radius-sm: 11px;
+  --font: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
 }
 
 *,
@@ -45,17 +45,17 @@ textarea {
   padding: 0.65rem 1rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--bg-elevated);
+  background: rgba(22, 33, 49, 0.9);
   color: var(--text);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 560;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
 }
 
 .btn:hover {
-  background: var(--bg-card);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(31, 45, 66, 0.95);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .btn:active {
@@ -63,13 +63,15 @@ textarea {
 }
 
 .btn-primary {
-  background: var(--accent-dim);
-  border-color: rgba(94, 234, 212, 0.35);
+  background: linear-gradient(135deg, rgba(124, 243, 221, 0.2), rgba(124, 243, 221, 0.1));
+  border-color: rgba(124, 243, 221, 0.42);
   color: var(--accent);
+  box-shadow: 0 0 28px rgba(124, 243, 221, 0.15);
 }
 
 .btn-primary:hover {
-  background: rgba(94, 234, 212, 0.22);
+  background: linear-gradient(135deg, rgba(124, 243, 221, 0.26), rgba(124, 243, 221, 0.14));
+  box-shadow: 0 0 34px rgba(124, 243, 221, 0.22);
 }
 
 .btn-ghost {
@@ -99,8 +101,8 @@ textarea {
   width: 100%;
   padding: 0.55rem 0.75rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--bg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 15, 24, 0.78);
   color: var(--text);
   font-size: 0.875rem;
 }
@@ -129,6 +131,7 @@ textarea {
   border-radius: var(--radius);
   padding: 1rem;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
 .badge {

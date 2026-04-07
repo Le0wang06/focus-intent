@@ -2,6 +2,9 @@ import { TASK_TYPES } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatCountdownClock } from './shared/time.js';
+import { mountLiveScene } from './shared/live-scene.js';
+
+let wasSessionActive = null;
 
 function populateTaskTypes() {
   const sel = document.getElementById('task-type');
@@ -46,9 +49,13 @@ async function refresh() {
     startPanel.hidden = false;
     activePanel.hidden = true;
 
-    document.getElementById('task-label').value = settings.lastTaskLabel || '';
-    document.getElementById('task-type').value = settings.lastTaskType || 'coding';
-    document.getElementById('duration').value = String(settings.defaultDurationMinutes || 25);
+    // Only hydrate defaults when entering the start panel,
+    // so the 1s refresh loop doesn't wipe what the user is typing.
+    if (wasSessionActive !== false) {
+      document.getElementById('task-label').value = settings.lastTaskLabel || '';
+      document.getElementById('task-type').value = settings.lastTaskType || 'coding';
+      document.getElementById('duration').value = String(settings.defaultDurationMinutes || 25);
+    }
   }
 
   const streakEl = document.getElementById('streak-line');
@@ -67,6 +74,8 @@ async function refresh() {
     startBtn.disabled = false;
     disabledHint.hidden = true;
   }
+
+  wasSessionActive = active;
 }
 
 document.getElementById('open-settings').addEventListener('click', () => {
@@ -97,6 +106,13 @@ document.getElementById('end-session').addEventListener('click', async () => {
 document.getElementById('toggle-pause').addEventListener('click', async () => {
   await sendToBackground({ type: Msg.TOGGLE_SESSION_PAUSE });
   await refresh();
+});
+
+mountLiveScene(document.getElementById('popup-scene'), {
+  density: 24,
+  hue: 172,
+  baseAlpha: 0.33,
+  linkDistance: 115
 });
 
 populateTaskTypes();
