@@ -10,26 +10,33 @@
   <body>
     <div class="blocked-page">
       <div class="blocked-card card">
-        <p class="badge" id="stage-badge">Focus check</p>
-        <h1 id="headline">Pause for a moment</h1>
-        <p class="lead" id="site-line"></p>
-        <p class="grounding" id="grounding"></p>
+        <p class="stage-badge muted" id="stage-badge">Focus check</p>
+        <h1 id="headline">Remember your task:</h1>
 
-        <div class="task-block">
-          <span class="field-label">Your session</span>
+        <div class="task-strip">
           <p class="task-title" id="task-title">—</p>
-          <p class="session-remaining muted" id="session-remaining">—</p>
+        </div>
+
+        <div class="timer-block">
+          <p class="session-remaining" id="session-remaining">24:00</p>
+          <p class="timer-label muted" id="session-sub">time remaining</p>
+          <div class="time-bar" aria-hidden="true">
+            <span class="time-bar-fill" id="time-bar-fill"></span>
+          </div>
         </div>
 
         <div class="pause-overlay" id="pause-overlay" hidden>
           <p class="pause-count" id="pause-count">3</p>
-          <p class="muted">A short pause before you choose.</p>
+          <p class="muted">Take one breath before deciding.</p>
         </div>
+
+        <p class="grounding muted" id="grounding"></p>
+        <p class="lead muted" id="site-line"></p>
 
         <div class="stage-body" id="stage-body">
           <div id="controls-1" class="controls" hidden>
-            <button type="button" class="btn btn-primary" id="btn-work-1">Go back to work</button>
-            <button type="button" class="btn btn-ghost" id="btn-open-1" disabled>Continue to site</button>
+            <button type="button" class="btn btn-primary" id="btn-work-1">Return to Work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-1" disabled>Continue</button>
           </div>
 
           <div id="controls-2" class="controls" hidden>
@@ -37,18 +44,16 @@
               <input type="checkbox" id="ack-2" />
               <span>I’m choosing to leave my focus session’s intention right now.</span>
             </label>
-            <button type="button" class="btn btn-primary" id="btn-work-2">Go back to work</button>
-            <button type="button" class="btn btn-ghost" id="btn-open-2" disabled>Continue anyway</button>
+            <button type="button" class="btn btn-primary" id="btn-work-2">Return to Work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-2" disabled>Continue Anyway</button>
           </div>
 
           <div id="controls-3" class="controls" hidden>
-            <p class="muted limit-copy">
-              You’ve reached the stronger limit for this site during this session. You can return to work, or wait for a
-              timed unlock.
-            </p>
-            <div class="unlock-timer muted" id="unlock-wait"></div>
-            <button type="button" class="btn btn-primary" id="btn-work-3">Go back to work</button>
-            <button type="button" class="btn btn-ghost" id="btn-open-3" disabled>Open for 2 minutes</button>
+            <div class="unlock-timer muted" id="unlock-wait">Unlock available in 45s</div>
+            <div class="stage-3-actions">
+              <button type="button" class="btn btn-primary" id="btn-work-3">Return to Work</button>
+              <button type="button" class="btn btn-ghost" id="btn-open-3" disabled>2 Min Unlock</button>
+            </div>
           </div>
         </div>
 
@@ -59,7 +64,7 @@
           <button type="button" class="btn btn-ghost recovery-btn" id="btn-recover">Return to last work page</button>
         </div>
 
-        <p class="muted footer-note">Focus Intent runs locally—nothing about this moment is sent to the cloud.</p>
+        <p class="muted footer-note">Need to unblock permanently? Go to Settings -> Blocked Sites</p>
       </div>
     </div>
     <script type="module" src="blocked.js"></script>

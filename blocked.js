@@ -2,7 +2,7 @@ import { randomGroundingMessage } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
 import { domainInList, isHttpUrl, normalizeDomainInput } from './shared/domains.js';
 import { sendToBackground } from './shared/messaging.js';
-import { formatSessionRemainingPhrase } from './shared/time.js';
+import { formatCountdownClock } from './shared/time.js';
 
 function qs(name) {
   return new URL(window.location.href).searchParams.get(name);
@@ -31,6 +31,17 @@ function bindOneClickAction(button, createMessage) {
   });
 }
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function updateTimeBar(leftMs, totalMs) {
+  const fill = document.getElementById('time-bar-fill');
+  if (!fill) return;
+  const fraction = clamp(leftMs / Math.max(1, totalMs), 0, 1);
+  fill.style.width = `${fraction * 100}%`;
+}
+
 async function main() {
   const targetUrl = qs('target');
   const domain = qs('domain') || 'this site';
@@ -50,11 +61,23 @@ async function main() {
   const session = state?.session;
   if (session?.active) {
     document.getElementById('task-title').textContent = session.taskLabel || 'Focused work';
-    const left = session.endsAt - Date.now();
-    document.getElementById('session-remaining').textContent = formatSessionRemainingPhrase(left);
+    const startedAt = session.startedAt || Date.now();
+    const total = session.endsAt - startedAt;
+    const timerEl = document.getElementById('session-remaining');
+    const subEl = document.getElementById('session-sub');
+    const paint = () => {
+      const left = session.endsAt - Date.now();
+      timerEl.textContent = formatCountdownClock(left);
+      subEl.textContent = left > 0 ? 'time remaining' : 'session ended';
+      updateTimeBar(left, total);
+    };
+    paint();
+    setInterval(paint, 1000);
   } else {
     document.getElementById('task-title').textContent = 'No active session';
-    document.getElementById('session-remaining').textContent = '';
+    document.getElementById('session-remaining').textContent = '--:--';
+    document.getElementById('session-sub').textContent = '';
+    updateTimeBar(0, 1);
   }
 
   const recoverRow = document.getElementById('recovery-row');
