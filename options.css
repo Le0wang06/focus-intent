@@ -1,28 +1,29 @@
 .options-page {
-  max-width: 880px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 3rem;
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 234, 212, 0.08), transparent),
-    var(--bg);
+  padding: 2.2rem 1.3rem 3.1rem;
+  background: radial-gradient(120% 90% at 50% -20%, rgba(255, 255, 255, 0.84), transparent 56%), var(--bg);
   min-height: 100vh;
 }
 
 .options-hero h1 {
   margin: 0 0 0.5rem;
-  font-size: 1.75rem;
+  font-size: 1.82rem;
   letter-spacing: -0.03em;
+  font-weight: 640;
 }
 
 .hero-copy {
   margin: 0;
   max-width: 52ch;
+  font-size: 0.9rem;
 }
 
 .options-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
+  gap: 1.15rem;
+  margin-top: 1.3rem;
 }
 
 @media (max-width: 720px) {
@@ -34,13 +35,15 @@
 .panel h2 {
   margin: 0 0 0.5rem;
   font-size: 1.05rem;
+  font-weight: 630;
+  letter-spacing: -0.015em;
 }
 
 .panel code {
-  font-size: 0.8em;
+  font-size: 0.78em;
   padding: 0.1em 0.35em;
-  border-radius: 4px;
-  background: var(--bg);
+  border-radius: 6px;
+  background: #f6f7fa;
   border: 1px solid var(--border);
 }
 
@@ -81,7 +84,7 @@
   padding: 0.55rem 0.65rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: #fcfcfd;
   margin-bottom: 0.4rem;
   font-size: 0.9rem;
 }
@@ -115,6 +118,7 @@
 .options-footer {
   margin-top: 2rem;
   max-width: 60ch;
+  font-size: 0.82rem;
 }
 
 .options-footer code {

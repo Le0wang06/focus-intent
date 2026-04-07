@@ -1,7 +1,7 @@
 .popup-root {
   width: 350px;
-  padding: 1rem 1rem 0.75rem;
-  background: linear-gradient(165deg, #111a28 0%, #0d1522 48%, #0b121c 100%);
+  padding: 1rem 1rem 0.82rem;
+  background: linear-gradient(180deg, #fbfbfd 0%, #f4f5f8 100%);
   min-height: 100%;
 }
 
@@ -10,27 +10,31 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.95rem;
+  margin-bottom: 1rem;
 }
 
 .popup-title {
   margin: 0;
-  font-size: 1.16rem;
-  font-weight: 650;
+  font-size: 1.14rem;
+  font-weight: 640;
   letter-spacing: -0.02em;
 }
 
 .popup-tagline {
-  margin: 0.2rem 0 0;
+  margin: 0.24rem 0 0;
+  font-size: 0.77rem;
 }
 
 .icon-btn {
-  padding: 0.45rem;
+  width: 34px;
+  height: 34px;
+  padding: 0;
   flex-shrink: 0;
+  border-radius: 999px;
 }
 
 .session-card {
-  margin-bottom: 0.82rem;
+  margin-bottom: 0.8rem;
 }
 
 .session-row {
@@ -43,7 +47,7 @@
 
 .session-time {
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
+  font-weight: 630;
   color: var(--accent);
   font-size: 0.95rem;
 }
@@ -51,7 +55,7 @@
 .task-name {
   margin: 0 0 0.35rem;
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 620;
 }
 
 .session-meta {
@@ -71,7 +75,7 @@
 .start-btn {
   width: 100%;
   margin-top: 1rem;
-  padding: 0.75rem;
+  padding: 0.76rem;
 }
 
 .disabled-hint {
@@ -84,8 +88,8 @@
 }
 
 .popup-footer {
-  margin-top: 0.75rem;
-  padding-top: 0.65rem;
+  margin-top: 0.8rem;
+  padding-top: 0.68rem;
   border-top: 1px solid var(--border);
 }
 
