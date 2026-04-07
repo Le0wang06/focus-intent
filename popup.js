@@ -2,7 +2,6 @@ import { TASK_TYPES } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatCountdownClock } from './shared/time.js';
-import { mountLiveScene } from './shared/live-scene.js';
 
 let wasSessionActive = null;
 
@@ -22,7 +21,7 @@ async function refresh() {
   if (!res?.ok) return;
 
   const { settings, session, streak } = res;
-  const active = session?.active && session.endsAt > Date.now();
+  const active = !!(session?.active && session.endsAt > Date.now());
 
   const startPanel = document.getElementById('start-panel');
   const activePanel = document.getElementById('active-panel');
@@ -106,13 +105,6 @@ document.getElementById('end-session').addEventListener('click', async () => {
 document.getElementById('toggle-pause').addEventListener('click', async () => {
   await sendToBackground({ type: Msg.TOGGLE_SESSION_PAUSE });
   await refresh();
-});
-
-mountLiveScene(document.getElementById('popup-scene'), {
-  density: 24,
-  hue: 172,
-  baseAlpha: 0.33,
-  linkDistance: 115
 });
 
 populateTaskTypes();
