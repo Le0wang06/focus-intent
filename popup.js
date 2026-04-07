@@ -1,18 +1,7 @@
 import { TASK_TYPES } from './shared/constants.js';
-
-function sendMessage(type, payload = {}) {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ type, ...payload }, resolve);
-  });
-}
-
-function formatRemaining(ms) {
-  if (ms <= 0) return '0:00';
-  const totalSec = Math.ceil(ms / 1000);
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return `${m}:${s.toString().padStart(2, '0')}`;
-}
+import { Msg } from './shared/messaging-types.js';
+import { sendToBackground } from './shared/messaging.js';
+import { formatCountdownClock } from './shared/time.js';
 
 function populateTaskTypes() {
   const sel = document.getElementById('task-type');
@@ -26,7 +15,7 @@ function populateTaskTypes() {
 }
 
 async function refresh() {
-  const res = await sendMessage('GET_STATE');
+  const res = await sendToBackground({ type: Msg.GET_STATE });
   if (!res?.ok) return;
 
   const { settings, session, streak } = res;
@@ -41,7 +30,7 @@ async function refresh() {
 
     document.getElementById('current-task').textContent = session.taskLabel || 'Focused work';
     const left = session.endsAt - Date.now();
-    document.getElementById('time-remaining').textContent = formatRemaining(left);
+    document.getElementById('time-remaining').textContent = formatCountdownClock(left);
 
     const typeLabel = TASK_TYPES.find((x) => x.id === session.taskType)?.label || session.taskType;
     document.getElementById('session-meta').textContent = session.paused
@@ -81,7 +70,7 @@ async function refresh() {
 }
 
 document.getElementById('open-settings').addEventListener('click', () => {
-  sendMessage('OPEN_OPTIONS');
+  sendToBackground({ type: Msg.OPEN_OPTIONS });
 });
 
 document.getElementById('start-session').addEventListener('click', async () => {
@@ -90,7 +79,8 @@ document.getElementById('start-session').addEventListener('click', async () => {
   const durationMinutes = Number(document.getElementById('duration').value) || 25;
   const allowlist = document.getElementById('allowlist').value;
 
-  const res = await sendMessage('START_SESSION', {
+  const res = await sendToBackground({
+    type: Msg.START_SESSION,
     taskType,
     taskLabel,
     durationMinutes,
@@ -100,12 +90,12 @@ document.getElementById('start-session').addEventListener('click', async () => {
 });
 
 document.getElementById('end-session').addEventListener('click', async () => {
-  await sendMessage('END_SESSION');
+  await sendToBackground({ type: Msg.END_SESSION });
   await refresh();
 });
 
 document.getElementById('toggle-pause').addEventListener('click', async () => {
-  await sendMessage('TOGGLE_SESSION_PAUSE');
+  await sendToBackground({ type: Msg.TOGGLE_SESSION_PAUSE });
   await refresh();
 });
 
