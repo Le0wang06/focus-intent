@@ -1,5 +1,6 @@
 import { randomGroundingMessage } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
+import { isHttpUrl } from './shared/domains.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatSessionRemainingPhrase } from './shared/time.js';
 
@@ -15,15 +16,6 @@ function parseTabId() {
 function parseStage() {
   const raw = Number.parseInt(qs('stage') ?? '', 10);
   return raw >= 1 && raw <= 3 ? raw : 1;
-}
-
-function isHttpUrl(value) {
-  try {
-    const url = new URL(value);
-    return url.protocol === 'http:' || url.protocol === 'https:';
-  } catch {
-    return false;
-  }
 }
 
 function bindOneClickAction(button, createMessage) {
