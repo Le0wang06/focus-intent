@@ -10,9 +10,12 @@
   <body>
     <div class="popup-root">
       <header class="popup-header">
-        <div>
-          <h1 class="popup-title">Focus Intent</h1>
-          <p class="popup-tagline muted">Intentional browsing. Local-only.</p>
+        <div class="brand-wrap">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1 class="popup-title">Focus</h1>
+            <p class="popup-tagline muted">Stay intentional.</p>
+          </div>
         </div>
         <button type="button" class="btn btn-ghost icon-btn" id="open-settings" title="Settings" aria-label="Open settings">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -23,6 +26,12 @@
           </svg>
         </button>
       </header>
+
+      <div class="nav-chips" aria-hidden="true">
+        <span class="chip active">Session</span>
+        <span class="chip">Sites</span>
+        <span class="chip">Settings</span>
+      </div>
 
       <section class="card session-card" id="active-panel" hidden>
         <div class="session-row">
