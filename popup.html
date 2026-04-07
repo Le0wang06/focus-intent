@@ -34,16 +34,28 @@
       </div>
 
       <section class="card session-card" id="active-panel" hidden>
-        <div class="session-row">
-          <span class="badge" id="session-badge">Focus on</span>
-          <span class="session-time" id="time-remaining">—</span>
+        <div class="session-head">
+          <h2 class="session-title">Focus</h2>
+          <div class="session-state">
+            <span class="state-dot" id="session-state-dot" aria-hidden="true"></span>
+            <span class="session-state-text" id="session-badge">Active</span>
+          </div>
         </div>
-        <h2 class="task-name" id="current-task">—</h2>
+
+        <div class="session-ring-wrap">
+          <svg class="session-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-progress" id="time-progress-ring" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="session-ring-center">
+            <p class="session-time" id="time-remaining">—</p>
+            <p class="task-name" id="current-task">—</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-ghost session-status-btn" id="toggle-pause">Session running</button>
+        <button type="button" class="btn btn-primary session-end-btn" id="end-session">End session</button>
         <p class="muted session-meta" id="session-meta"></p>
-        <div class="session-actions">
-          <button type="button" class="btn btn-ghost" id="toggle-pause">Pause checks</button>
-          <button type="button" class="btn btn-danger" id="end-session">End session</button>
-        </div>
       </section>
 
       <section class="card start-card" id="start-panel">
