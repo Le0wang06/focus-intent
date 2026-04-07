@@ -29,7 +29,7 @@ A Chrome extension (Manifest V3) for **intentional browsing**: task-aware focus 
 
 ## Permissions
 
-See the manifest: `storage`, `tabs`, `alarms`, and `http(s)://*/*` host access. Details are in the extension’s options copy and in interview notes you can derive from `service_worker.js`.
+See the manifest: `storage`, `tabs`, `alarms`, and `http(s)://*/*` host access. For behavior details, trace from `background/main.js` through `handlers.js` and `intercept.js`.
 
 ## License
 
