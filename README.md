@@ -7,7 +7,7 @@
 A Manifest V3 extension that nudges you when you drift to distracting sites during a session. Escalating stages, a calm intervention page, and one-click return to real work. **Everything stays on your machine.**
 
 [![Chrome](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/intro/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./README.md#license)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Privacy](https://img.shields.io/badge/data-local--only-2ea043)](#privacy--permissions)
 
 </div>
