@@ -1,0 +1,13 @@
+/**
+ * Background message types. Use these from UI scripts and handlers so renames stay safe.
+ */
+export const Msg = Object.freeze({
+  GET_STATE: 'GET_STATE',
+  START_SESSION: 'START_SESSION',
+  END_SESSION: 'END_SESSION',
+  TOGGLE_SESSION_PAUSE: 'TOGGLE_SESSION_PAUSE',
+  GRANT_ONE_SHOT: 'GRANT_ONE_SHOT',
+  GRANT_TEMP_UNLOCK: 'GRANT_TEMP_UNLOCK',
+  OPEN_OPTIONS: 'OPEN_OPTIONS',
+  RETURN_TO_WORK: 'RETURN_TO_WORK'
+});
