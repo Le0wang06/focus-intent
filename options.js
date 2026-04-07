@@ -1,24 +1,16 @@
 import { normalizeDomainInput, uniqueDomains } from './shared/domains.js';
 import { FRICTION_STYLES, SITE_PRESETS } from './shared/constants.js';
+import { STORAGE_KEYS, DEFAULT_SETTINGS } from './shared/storage-keys.js';
 
-const STORAGE_KEY = 'fi_settings';
-
-const DEFAULT_SETTINGS = {
-  blockedDomains: [],
-  defaultDurationMinutes: 25,
-  frictionStyle: 'balanced',
-  extensionEnabled: true,
-  lastTaskLabel: '',
-  lastTaskType: 'coding'
-};
+const SETTINGS_KEY = STORAGE_KEYS.SETTINGS;
 
 async function loadSettings() {
-  const data = await chrome.storage.local.get(STORAGE_KEY);
-  return { ...DEFAULT_SETTINGS, ...(data[STORAGE_KEY] || {}) };
+  const data = await chrome.storage.local.get(SETTINGS_KEY);
+  return { ...DEFAULT_SETTINGS, ...(data[SETTINGS_KEY] || {}) };
 }
 
 async function saveSettings(settings) {
-  await chrome.storage.local.set({ [STORAGE_KEY]: settings });
+  await chrome.storage.local.set({ [SETTINGS_KEY]: settings });
 }
 
 function renderDomainList(domains) {
@@ -142,5 +134,5 @@ setupPresets();
 paint();
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'local' && changes[STORAGE_KEY]) paint();
+  if (area === 'local' && changes[SETTINGS_KEY]) paint();
 });
