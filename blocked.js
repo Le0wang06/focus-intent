@@ -1,22 +1,10 @@
 import { randomGroundingMessage } from './shared/constants.js';
-
-function sendMessage(type, payload = {}) {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ type, ...payload }, resolve);
-  });
-}
-
-function formatRemaining(ms) {
-  if (ms <= 0) return 'Session ending…';
-  const totalSec = Math.ceil(ms / 1000);
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return `${m}m ${s.toString().padStart(2, '0')}s left`;
-}
+import { Msg } from './shared/messaging-types.js';
+import { sendToBackground } from './shared/messaging.js';
+import { formatSessionRemainingPhrase } from './shared/time.js';
 
 function qs(name) {
-  const u = new URL(window.location.href);
-  return u.searchParams.get(name);
+  return new URL(window.location.href).searchParams.get(name);
 }
 
 async function main() {
@@ -34,12 +22,12 @@ async function main() {
   document.getElementById('grounding').textContent = randomGroundingMessage();
   document.getElementById('site-line').textContent = `You asked to open ${domain}.`;
 
-  const state = await sendMessage('GET_STATE');
+  const state = await sendToBackground({ type: Msg.GET_STATE });
   const session = state?.session;
   if (session?.active) {
     document.getElementById('task-title').textContent = session.taskLabel || 'Focused work';
     const left = session.endsAt - Date.now();
-    document.getElementById('session-remaining').textContent = formatRemaining(left);
+    document.getElementById('session-remaining').textContent = formatSessionRemainingPhrase(left);
   } else {
     document.getElementById('task-title').textContent = 'No active session';
     document.getElementById('session-remaining').textContent = '';
@@ -50,13 +38,13 @@ async function main() {
   if (session?.lastProductiveUrl) {
     recoverRow.hidden = false;
     btnRecover.addEventListener('click', () => {
-      sendMessage('RETURN_TO_WORK', { tabId });
+      sendToBackground({ type: Msg.RETURN_TO_WORK, tabId });
     });
   }
 
   const bindWork = (id) => {
     document.getElementById(id).addEventListener('click', () => {
-      sendMessage('RETURN_TO_WORK', { tabId });
+      sendToBackground({ type: Msg.RETURN_TO_WORK, tabId });
     });
   };
 
@@ -84,7 +72,7 @@ async function main() {
 
     bindWork('btn-work-1');
     btnOpen.addEventListener('click', () => {
-      sendMessage('GRANT_ONE_SHOT', { tabId, domain, targetUrl });
+      sendToBackground({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl });
     });
   } else if (stage === 2) {
     document.getElementById('stage-badge').textContent = 'Second check';
@@ -97,7 +85,7 @@ async function main() {
     });
     bindWork('btn-work-2');
     btnOpen.addEventListener('click', () => {
-      sendMessage('GRANT_ONE_SHOT', { tabId, domain, targetUrl });
+      sendToBackground({ type: Msg.GRANT_ONE_SHOT, tabId, domain, targetUrl });
     });
   } else {
     document.getElementById('stage-badge').textContent = 'Strong limit';
@@ -121,7 +109,7 @@ async function main() {
     }, 1000);
 
     btnOpen.addEventListener('click', () => {
-      sendMessage('GRANT_TEMP_UNLOCK', { tabId, domain, targetUrl, minutes: 2 });
+      sendToBackground({ type: Msg.GRANT_TEMP_UNLOCK, tabId, domain, targetUrl, minutes: 2 });
     });
   }
 }
