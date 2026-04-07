@@ -1,8 +1,14 @@
 import { Msg } from '../shared/messaging-types.js';
-import { normalizeDomainInput } from '../shared/domains.js';
+import { isHttpUrl, normalizeDomainInput, uniqueDomains } from '../shared/domains.js';
 import { ONE_SHOT_TTL_MS } from '../shared/storage-keys.js';
 import * as storage from './storage.js';
-import { reconcileExpiredSession, teardownSession, startSessionFromMessage, toggleSessionPause } from './session.js';
+import {
+  reconcileExpiredSession,
+  teardownSession,
+  startSessionFromMessage,
+  toggleSessionPause,
+  isSessionActive
+} from './session.js';
 import { bumpSessionStreak } from './streak.js';
 
 export async function handleMessage(message) {
@@ -60,6 +66,33 @@ export async function handleMessage(message) {
         /* ignore */
       }
       return { ok: true };
+    }
+
+    case Msg.ALLOW_DOMAIN_FOR_SESSION: {
+      const domain = normalizeDomainInput(message.domain);
+      if (!domain) return { ok: false, error: 'invalid_domain' };
+
+      let session = await storage.getSession();
+      session = await reconcileExpiredSession(session);
+      if (!isSessionActive(session)) {
+        return { ok: false, error: 'no_session' };
+      }
+
+      const nextAllowlist = uniqueDomains([...(session.sessionAllowlist || []), domain]);
+      session = {
+        ...session,
+        sessionAllowlist: nextAllowlist
+      };
+      await storage.setSession(session);
+
+      try {
+        if (message.tabId && message.targetUrl && isHttpUrl(message.targetUrl)) {
+          await chrome.tabs.update(message.tabId, { url: message.targetUrl });
+        }
+      } catch {
+        /* ignore */
+      }
+      return { ok: true, session };
     }
 
     case Msg.OPEN_OPTIONS: {
