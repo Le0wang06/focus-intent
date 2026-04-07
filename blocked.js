@@ -1,6 +1,6 @@
 import { randomGroundingMessage } from './shared/constants.js';
 import { Msg } from './shared/messaging-types.js';
-import { isHttpUrl } from './shared/domains.js';
+import { domainInList, isHttpUrl, normalizeDomainInput } from './shared/domains.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatSessionRemainingPhrase } from './shared/time.js';
 
@@ -58,9 +58,26 @@ async function main() {
   }
 
   const recoverRow = document.getElementById('recovery-row');
+  const btnAllowSession = document.getElementById('btn-allow-session');
   const btnRecover = document.getElementById('btn-recover');
-  if (session?.lastProductiveUrl) {
+  const normalizedDomain = normalizeDomainInput(domain);
+  const canAllowForSession =
+    !!session?.active &&
+    !!normalizedDomain &&
+    !domainInList(normalizedDomain, session.sessionAllowlist || []);
+  if (session?.lastProductiveUrl || canAllowForSession) {
     recoverRow.hidden = false;
+  }
+  if (canAllowForSession) {
+    btnAllowSession.hidden = false;
+    bindOneClickAction(btnAllowSession, () => ({
+      type: Msg.ALLOW_DOMAIN_FOR_SESSION,
+      tabId,
+      domain: normalizedDomain,
+      targetUrl
+    }));
+  }
+  if (session?.lastProductiveUrl) {
     btnRecover.addEventListener('click', () => {
       sendToBackground({ type: Msg.RETURN_TO_WORK, tabId });
     });
