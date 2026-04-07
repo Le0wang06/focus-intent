@@ -51,3 +51,19 @@ export function uniqueDomains(list) {
   }
   return out;
 }
+
+/** True if hostname matches any entry in the list (normalized). */
+export function domainInList(hostname, list) {
+  if (!hostname || !list?.length) return false;
+  return list.some((d) => hostnameMatches(hostname, d));
+}
+
+/**
+ * Normalize a session allowlist from popup textarea (string) or structured input.
+ */
+export function parseAllowlistInput(raw) {
+  if (typeof raw === 'string') {
+    return uniqueDomains(raw.split(/[\n,]+/));
+  }
+  return uniqueDomains(Array.isArray(raw) ? raw : []);
+}
