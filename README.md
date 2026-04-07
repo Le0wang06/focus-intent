@@ -23,7 +23,9 @@ A Chrome extension (Manifest V3) for **intentional browsing**: task-aware focus 
 
 ## GitHub
 
-After creating an empty repository on GitHub (no README/license if you want a clean first push):
+This project is already initialized as a Git repo under `Projects/focus-intent` with a small commit history (scaffold → service worker → popup → options → blocked page → tweaks).
+
+After you create an **empty** repository on GitHub (no README/license if you want a clean first push):
 
 ```bash
 cd /path/to/focus-intent
