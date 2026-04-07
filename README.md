@@ -2,6 +2,28 @@
 
 A Chrome extension (Manifest V3) for **intentional browsing**: task-aware focus sessions, escalating friction instead of only hard blocks, and a recovery-oriented interruption page. **Local-first**—no account, backend, or analytics.
 
+## Your copy on this Mac
+
+The repo you have been working in lives on disk here:
+
+**`~/Projects/focus-intent`**  
+(full path: `/Users/<you>/Projects/focus-intent`)
+
+- **Finder:** press `Cmd + Shift + G`, paste `~/Projects/focus-intent`, Enter.
+- **Cursor / VS Code:** *File → Open Folder…* and choose that folder (not your whole home directory).
+- **Terminal:** `cd ~/Projects/focus-intent`
+
+To put a **fresh clone** somewhere else (e.g. dedicated dev folder):
+
+```bash
+mkdir -p ~/Developer
+cd ~/Developer
+git clone https://github.com/Le0wang06/focus-intent.git
+cd focus-intent
+```
+
+After that, open `~/Developer/focus-intent` in your editor and load **that** path in Chrome as unpacked.
+
 ## Load in Chrome
 
 1. Open `chrome://extensions`.
