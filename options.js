@@ -21,12 +21,6 @@ async function saveSettings(settings) {
   await chrome.storage.local.set({ [STORAGE_KEY]: settings });
 }
 
-function sendMessage(type, payload = {}) {
-  return new Promise((resolve) => {
-    chrome.runtime.sendMessage({ type, ...payload }, resolve);
-  });
-}
-
 function renderDomainList(domains) {
   const ul = document.getElementById('domain-list');
   const hint = document.getElementById('empty-hint');
