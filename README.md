@@ -13,11 +13,17 @@ A Chrome extension (Manifest V3) for **intentional browsing**: task-aware focus 
 | Path | Role |
 |------|------|
 | `manifest.json` | MV3 manifest, permissions |
-| `service_worker.js` | Session lifecycle, redirects, friction state, alarms |
+| `background/main.js` | Service worker entry (listeners only) |
+| `background/handlers.js` | `chrome.runtime` message dispatch |
+| `background/intercept.js` | Tab URL checks and redirect to intervention page |
+| `background/session.js` | Session lifecycle (start, teardown, pause, expiry) |
+| `background/storage.js` | `chrome.storage.local` read/write |
+| `background/friction.js` | Visit count → intervention stage |
+| `background/streak.js` | Daily session streak |
 | `popup.*` | Start/end session, timer, pause interventions |
 | `options.*` | Blocklist, presets, defaults, privacy copy |
 | `blocked.*` | Intervention / recovery UI |
-| `shared/` | Domain helpers and copy constants |
+| `shared/` | Storage keys, messaging, domains, time, copy constants |
 | `styles/tokens.css` | Shared visual tokens and base controls |
 | `icons/` | Toolbar / store icons |
 
