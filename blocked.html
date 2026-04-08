@@ -12,26 +12,26 @@
       <div class="blocked-card card">
         <p class="stage-badge muted" id="stage-badge">Focus check</p>
         <h1 id="headline">Remember your task:</h1>
+        <p class="lead muted" id="site-line"></p>
 
-        <div class="task-strip">
+        <div class="task-block">
           <p class="task-title" id="task-title">—</p>
         </div>
 
-        <div class="timer-block">
-          <p class="session-remaining" id="session-remaining">24:00</p>
-          <p class="timer-label muted" id="session-sub">time remaining</p>
-          <div class="time-bar" aria-hidden="true">
-            <span class="time-bar-fill" id="time-bar-fill"></span>
+        <div class="timer-wrap">
+          <p class="session-remaining" id="session-remaining">--:--</p>
+          <p class="muted timer-caption" id="session-sub">time remaining</p>
+          <div class="time-track" aria-hidden="true">
+            <span class="time-fill" id="time-bar-fill"></span>
           </div>
         </div>
 
         <div class="pause-overlay" id="pause-overlay" hidden>
           <p class="pause-count" id="pause-count">3</p>
-          <p class="muted">Take one breath before deciding.</p>
+          <p class="muted">Take one breath before choosing.</p>
         </div>
 
         <p class="grounding muted" id="grounding"></p>
-        <p class="lead muted" id="site-line"></p>
 
         <div class="stage-body" id="stage-body">
           <div id="controls-1" class="controls" hidden>
@@ -49,11 +49,9 @@
           </div>
 
           <div id="controls-3" class="controls" hidden>
-            <div class="unlock-timer muted" id="unlock-wait">Unlock available in 45s</div>
-            <div class="stage-3-actions">
-              <button type="button" class="btn btn-primary" id="btn-work-3">Return to Work</button>
-              <button type="button" class="btn btn-ghost" id="btn-open-3" disabled>2 Min Unlock</button>
-            </div>
+            <div class="unlock-timer muted" id="unlock-wait"></div>
+            <button type="button" class="btn btn-primary" id="btn-work-3">Return to Work</button>
+            <button type="button" class="btn btn-ghost" id="btn-open-3" disabled>2 Min Unlock</button>
           </div>
         </div>
 

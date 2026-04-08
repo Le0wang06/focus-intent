@@ -1,9 +1,11 @@
 import { TASK_TYPES } from './shared/constants.js';
+import { uniqueDomains } from './shared/domains.js';
 import { Msg } from './shared/messaging-types.js';
 import { sendToBackground } from './shared/messaging.js';
 import { formatCountdownClock } from './shared/time.js';
 
 let wasSessionActive = null;
+let activeTab = 'session';
 const RING_RADIUS = 52;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
@@ -16,6 +18,16 @@ function setupProgressRing() {
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
+}
+
+function normalizeDuration(value) {
+  const n = Number(value) || 25;
+  const stepped = Math.round(n / 5) * 5;
+  return clamp(stepped, 5, 480);
+}
+
+function setDuration(value) {
+  document.getElementById('duration').value = String(normalizeDuration(value));
 }
 
 function ringColorForTimeFraction(timeLeftFraction) {
@@ -47,11 +59,48 @@ function populateTaskTypes() {
   }
 }
 
+function setTab(tabId) {
+  activeTab = tabId;
+  const ids = ['session', 'sites', 'settings'];
+  for (const id of ids) {
+    const tabBtn = document.getElementById(`tab-${id}`);
+    const view = document.getElementById(`view-${id}`);
+    const isActive = id === tabId;
+    tabBtn.classList.toggle('active', isActive);
+    tabBtn.setAttribute('aria-selected', String(isActive));
+    view.hidden = !isActive;
+  }
+}
+
+function renderSites(blockedDomains) {
+  const list = document.getElementById('sites-list');
+  const empty = document.getElementById('sites-empty');
+  list.innerHTML = '';
+  const domains = uniqueDomains(blockedDomains || []).sort((a, b) => a.localeCompare(b));
+
+  if (!domains.length) {
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+
+  for (const domain of domains) {
+    const li = document.createElement('li');
+    li.className = 'site-row';
+    li.innerHTML = `
+      <span class="site-domain">${domain}</span>
+      <span class="site-dot" aria-hidden="true"></span>
+    `;
+    list.appendChild(li);
+  }
+}
+
 async function refresh() {
   const res = await sendToBackground({ type: Msg.GET_STATE });
   if (!res?.ok) return;
 
   const { settings, session, streak } = res;
+  renderSites(settings.blockedDomains);
   const active = !!(session?.active && session.endsAt > Date.now());
 
   const startPanel = document.getElementById('start-panel');
@@ -90,7 +139,7 @@ async function refresh() {
     if (wasSessionActive !== false) {
       document.getElementById('task-label').value = settings.lastTaskLabel || '';
       document.getElementById('task-type').value = settings.lastTaskType || 'coding';
-      document.getElementById('duration').value = String(settings.defaultDurationMinutes || 25);
+      setDuration(settings.defaultDurationMinutes || 25);
     }
   }
 
@@ -114,8 +163,40 @@ async function refresh() {
   wasSessionActive = active;
 }
 
-document.getElementById('open-settings').addEventListener('click', () => {
+function openSettings() {
   sendToBackground({ type: Msg.OPEN_OPTIONS });
+}
+
+document.getElementById('open-settings').addEventListener('click', () => {
+  openSettings();
+});
+
+document.getElementById('open-settings-secondary').addEventListener('click', () => {
+  openSettings();
+});
+
+document.getElementById('tab-session').addEventListener('click', () => setTab('session'));
+document.getElementById('tab-sites').addEventListener('click', () => setTab('sites'));
+document.getElementById('tab-settings').addEventListener('click', () => setTab('settings'));
+
+document.getElementById('duration-minus').addEventListener('click', () => {
+  const current = Number(document.getElementById('duration').value) || 25;
+  setDuration(current - 5);
+});
+
+document.getElementById('duration-plus').addEventListener('click', () => {
+  const current = Number(document.getElementById('duration').value) || 25;
+  setDuration(current + 5);
+});
+
+for (const btn of document.querySelectorAll('.quick-add')) {
+  btn.addEventListener('click', () => {
+    setDuration(Number(btn.dataset.minutes));
+  });
+}
+
+document.getElementById('duration').addEventListener('change', () => {
+  setDuration(document.getElementById('duration').value);
 });
 
 document.getElementById('start-session').addEventListener('click', async () => {
@@ -146,5 +227,6 @@ document.getElementById('toggle-pause').addEventListener('click', async () => {
 
 populateTaskTypes();
 setupProgressRing();
+setTab(activeTab);
 refresh();
 setInterval(refresh, 1000);
